@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="securityProvider" class="com.simplelistapp.security.SecurityProviderAdvanced" />
+
+    <bean id="databaseProvider" class="com.simplelistapp.database.DatabaseProviderOracle" />
+
+	<bean id="employeesDao" class="com.simplelistapp.dao.impl.EmployeesDaoImpl">
+		<constructor-arg ref="databaseProvider" />
+	</bean>
+
+	<bean id="departmentsWs" class="com.simplelistapp.ws.impl.DepartmentWebServiceRest" />
+
+    <bean id="employeeListGratifications" class="com.simplelistapp.business.EmployeeListGratifications">
+        <property name="securityProvider"     ref="securityProvider" />
+        <property name="employeesDao"         ref="employeesDao" />
+        <property name="departmentWebService" ref="departmentsWs" />
+    </bean>
+
+</beans>
